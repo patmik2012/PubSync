@@ -32,7 +32,7 @@ namespace PubSync
 
             IList<IWebElement> MTMTBooks = driverMTMT.FindElements(By.XPath("//div[@class='title']"));
             MessageBox.Show("MTMT könyvek száma: "+MTMTBooks.Count.ToString());
-            driverMTMT.Close();
+            //driverMTMT.Quit();
             
 
             /*
