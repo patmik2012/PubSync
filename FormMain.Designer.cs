@@ -30,11 +30,13 @@ namespace PubSync
         private void InitializeComponent()
         {
             this.btnSearch = new System.Windows.Forms.Button();
+            this.dGVMTMT = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dGVMTMT)).BeginInit();
             this.SuspendLayout();
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(391, 177);
+            this.btnSearch.Location = new System.Drawing.Point(332, 246);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 0;
@@ -42,14 +44,24 @@ namespace PubSync
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
+            // dGVMTMT
+            // 
+            this.dGVMTMT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGVMTMT.Location = new System.Drawing.Point(49, 66);
+            this.dGVMTMT.Name = "dGVMTMT";
+            this.dGVMTMT.Size = new System.Drawing.Size(240, 150);
+            this.dGVMTMT.TabIndex = 1;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dGVMTMT);
             this.Controls.Add(this.btnSearch);
             this.Name = "FormMain";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.dGVMTMT)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -57,6 +69,7 @@ namespace PubSync
         #endregion
 
         private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.DataGridView dGVMTMT;
     }
 }
 
