@@ -15,90 +15,98 @@ namespace PubSync
 {
     public partial class FormMain : Form
     {
-        List<MTMTBook> lstMTMBooks = new List<MTMTBook>();
+        
+        List<Book> lstBooks = new List<Book>();
+
 
         public void MTMTSearch(string author, int delay)
         {
             //MTMT oldalról adatok letöltése
             ChromeOptions options = new ChromeOptions();
-            options.AddArgument("headless");
+            options.AddArgument("headless"); //Chrome böngésző elrejtése
             var driverService = ChromeDriverService.CreateDefaultService();
-            driverService.HideCommandPromptWindow = true;
+            driverService.HideCommandPromptWindow = true; //ChromeDriver Windows command window elrejtáse
             IWebDriver driverMTMT = new ChromeDriver(driverService,options);
 
-            driverMTMT.Navigate().GoToUrl("http://www.mtmt.hu");
-            driverMTMT.FindElement(By.Name("searchfield")).SendKeys(author + OpenQA.Selenium.Keys.Enter);
-            Thread.Sleep(delay);
-
-            //rossz szerző keresés kezelése
             try
             {
-                driverMTMT.FindElement(By.PartialLinkText(author)).Click();
+                driverMTMT.Navigate().GoToUrl("http://www.mtmt.hu");
+                driverMTMT.FindElement(By.Name("searchfield")).SendKeys(author + OpenQA.Selenium.Keys.Enter);
+                Thread.Sleep(delay);
+
+                //rossz szerző keresés kezelése
+                try
+                {
+                    driverMTMT.FindElement(By.PartialLinkText(author)).Click();
+                }
+                catch
+                {
+                    MessageBox.Show("Nem találtam adatot!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DataClear();
+                }
+                Thread.Sleep(delay);
+
+                IList<IWebElement> titles = driverMTMT.FindElements(By.XPath("//div[@class='title']"));
+                IList<IWebElement> authors = driverMTMT.FindElements(By.XPath("//div[@class='authors']"));
+                IList<IWebElement> pubInfo = driverMTMT.FindElements(By.XPath("//div[@class='pub-info']"));
+                IList<IWebElement> pubEnd = driverMTMT.FindElements(By.XPath("//div[@class='pub-end']"));
+
+                //Osztály feltöltése adatokkal
+                if (titles.Count > 0)
+                {
+                    for (int i = 0; i < titles.Count; i++)
+                    {
+                        lstBooks.Add(new Book()
+                        {
+                            MTMTauthors = authors[i].Text.ToString(),
+                            MTMTtitle = titles[i].Text.ToString(),
+                            MTMTpubInfo = pubInfo[i].Text.ToString(),
+                            MTMTpubEnd = pubEnd[i].Text.ToString()
+                        });
+                    }
+                }
+                driverMTMT.Quit();
             }
             catch
             {
-                MessageBox.Show("Nem találtam adatot!", "Hiba",MessageBoxButtons.OK, MessageBoxIcon.Error);
-                DataClear();
+                MessageBox.Show("Nem érem el az MTMT weboldalt!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            Thread.Sleep(delay);
 
-            IList<IWebElement> titles = driverMTMT.FindElements(By.XPath("//div[@class='title']"));
-            IList<IWebElement> authors = driverMTMT.FindElements(By.XPath("//div[@class='authors']"));
-            IList<IWebElement> pubInfo = driverMTMT.FindElements(By.XPath("//div[@class='pub-info']"));
-            IList<IWebElement> pubEnd = driverMTMT.FindElements(By.XPath("//div[@class='pub-end']"));
-
-            //Osztály feltöltése adatokkal
-            if (titles.Count > 0)
-            {
-                for (int i = 0; i < titles.Count; i++)
-                {
-                    lstMTMBooks.Add(new MTMTBook()
-                    {
-                        authors = authors[i].Text.ToString(),
-                        title = titles[i].Text.ToString(),
-                        pubInfo = pubInfo[i].Text.ToString(),
-                        pubEnd = pubEnd[i].Text.ToString()
-                    });
-                }
-            }
-            driverMTMT.Quit();
         }
 
         //DataGrid inicializálása és feltöltése
         public void DGFill()
         { 
-            dGVMTMT.ColumnCount = 5;
-            dGVMTMT.Columns[0].Name = "id";
-            dGVMTMT.Columns[1].Name = "authors";
-            dGVMTMT.Columns[2].Name = "title";
-            dGVMTMT.Columns[3].Name = "pubInfo";
-            dGVMTMT.Columns[4].Name = "pubEnd";
+            DGVMTMT.ColumnCount = 5;
+            DGVMTMT.Columns[0].Name = "id";
+            DGVMTMT.Columns[1].Name = "authors";
+            DGVMTMT.Columns[2].Name = "title";
+            DGVMTMT.Columns[3].Name = "pubInfo";
+            DGVMTMT.Columns[4].Name = "pubEnd";
 
-            if (lstMTMBooks.Count > 0)
+            if (lstBooks.Count > 0)
             {
                 DataExist();
-                lblMTMTCount.Text = lstMTMBooks.Count.ToString() + " db";
-                for (int i = 0; i < lstMTMBooks.Count; i++)
+                LblMTMTBooks.Text= "Művek száma az MTMT-ben: " + lstBooks.Count.ToString() + " db";
+                for (int i = 0; i < lstBooks.Count; i++)
                 {
-                    string[] row = new string[] { (i + 1).ToString(), lstMTMBooks[i].authors, lstMTMBooks[i].title, lstMTMBooks[i].pubInfo, lstMTMBooks[i].pubEnd };
-                    dGVMTMT.Rows.Add(row);
+                    string[] row = new string[] { (i + 1).ToString(), lstBooks[i].MTMTauthors, lstBooks[i].MTMTtitle, lstBooks[i].MTMTpubInfo, lstBooks[i].MTMTpubEnd };
+                    DGVMTMT.Rows.Add(row);
                 }
             }
-            dGVMTMT.AutoResizeColumns();
+            DGVMTMT.AutoResizeColumns();
         }
 
         public void DataClear()
         {
-            lblMTMTBooks.Visible = false;
-            lblMTMTCount.Visible = false;
-            lstMTMBooks.Clear();
-            dGVMTMT.Rows.Clear();
+            LblMTMTBooks.Visible = false;
+            lstBooks.Clear();
+            DGVMTMT.Rows.Clear();
         }
 
         public void DataExist()
         {
-            lblMTMTBooks.Visible = true;
-            lblMTMTCount.Visible = true;
+            LblMTMTBooks.Visible = true;
         }
 
 
@@ -111,21 +119,21 @@ namespace PubSync
 
 
         //Keresés gomb
-        private void btnSearch_Click(object sender, EventArgs e)
+        private void BtnSearch_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
             DataClear();
-            MTMTSearch(txtBxAuthor.Text, 300);
+            MTMTSearch(TxtBxAuthor.Text, 300);
             DGFill();
             Cursor.Current = Cursors.Default;
         }
 
         //TextBoxban Enterrel is lenyomja a keresés gombot
-        private void txtBxAuthor_KeyDown(object sender, KeyEventArgs e)
+        private void TxtBxAuthor_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == System.Windows.Forms.Keys.Enter)
             {
-                btnSearch.PerformClick();
+                BtnSearch.PerformClick();
             }
         }
     }

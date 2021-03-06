@@ -31,15 +31,15 @@ namespace PubSync
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblMTMTCount = new System.Windows.Forms.Label();
-            this.lblMTMTBooks = new System.Windows.Forms.Label();
-            this.txtBxAuthor = new System.Windows.Forms.TextBox();
-            this.lblAuthor = new System.Windows.Forms.Label();
-            this.btnSearch = new System.Windows.Forms.Button();
+            this.LblMTMTBooks = new System.Windows.Forms.Label();
+            this.TxtBxAuthor = new System.Windows.Forms.TextBox();
+            this.LblAuthor = new System.Windows.Forms.Label();
+            this.BtnSearch = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dGVMTMT = new System.Windows.Forms.DataGridView();
+            this.DGVMTMT = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dGVMTMT)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVMTMT)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -48,10 +48,10 @@ namespace PubSync
             this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox1.BackColor = System.Drawing.Color.Silver;
             this.groupBox1.Controls.Add(this.lblMTMTCount);
-            this.groupBox1.Controls.Add(this.lblMTMTBooks);
-            this.groupBox1.Controls.Add(this.txtBxAuthor);
-            this.groupBox1.Controls.Add(this.lblAuthor);
-            this.groupBox1.Controls.Add(this.btnSearch);
+            this.groupBox1.Controls.Add(this.LblMTMTBooks);
+            this.groupBox1.Controls.Add(this.TxtBxAuthor);
+            this.groupBox1.Controls.Add(this.LblAuthor);
+            this.groupBox1.Controls.Add(this.BtnSearch);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
@@ -67,45 +67,45 @@ namespace PubSync
             this.lblMTMTCount.Size = new System.Drawing.Size(0, 13);
             this.lblMTMTCount.TabIndex = 10;
             // 
-            // lblMTMTBooks
+            // LblMTMTBooks
             // 
-            this.lblMTMTBooks.AutoSize = true;
-            this.lblMTMTBooks.Location = new System.Drawing.Point(32, 76);
-            this.lblMTMTBooks.Name = "lblMTMTBooks";
-            this.lblMTMTBooks.Size = new System.Drawing.Size(77, 13);
-            this.lblMTMTBooks.TabIndex = 9;
-            this.lblMTMTBooks.Text = "MTMT művek:";
+            this.LblMTMTBooks.AutoSize = true;
+            this.LblMTMTBooks.Location = new System.Drawing.Point(32, 76);
+            this.LblMTMTBooks.Name = "LblMTMTBooks";
+            this.LblMTMTBooks.Size = new System.Drawing.Size(77, 13);
+            this.LblMTMTBooks.TabIndex = 9;
+            this.LblMTMTBooks.Text = "MTMT művek:";
             // 
-            // txtBxAuthor
+            // TxtBxAuthor
             // 
-            this.txtBxAuthor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.txtBxAuthor.Location = new System.Drawing.Point(111, 30);
-            this.txtBxAuthor.Name = "txtBxAuthor";
-            this.txtBxAuthor.Size = new System.Drawing.Size(147, 26);
-            this.txtBxAuthor.TabIndex = 0;
-            this.txtBxAuthor.Text = "Süle Zoltán";
-            this.txtBxAuthor.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBxAuthor_KeyDown);
+            this.TxtBxAuthor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.TxtBxAuthor.Location = new System.Drawing.Point(111, 30);
+            this.TxtBxAuthor.Name = "TxtBxAuthor";
+            this.TxtBxAuthor.Size = new System.Drawing.Size(147, 26);
+            this.TxtBxAuthor.TabIndex = 0;
+            this.TxtBxAuthor.Text = "Süle Zoltán";
+            this.TxtBxAuthor.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtBxAuthor_KeyDown);
             // 
-            // lblAuthor
+            // LblAuthor
             // 
-            this.lblAuthor.AutoSize = true;
-            this.lblAuthor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblAuthor.Location = new System.Drawing.Point(28, 31);
-            this.lblAuthor.Name = "lblAuthor";
-            this.lblAuthor.Size = new System.Drawing.Size(63, 20);
-            this.lblAuthor.TabIndex = 7;
-            this.lblAuthor.Text = "Szerző:";
+            this.LblAuthor.AutoSize = true;
+            this.LblAuthor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.LblAuthor.Location = new System.Drawing.Point(28, 31);
+            this.LblAuthor.Name = "LblAuthor";
+            this.LblAuthor.Size = new System.Drawing.Size(63, 20);
+            this.LblAuthor.TabIndex = 7;
+            this.LblAuthor.Text = "Szerző:";
             // 
-            // btnSearch
+            // BtnSearch
             // 
-            this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnSearch.Location = new System.Drawing.Point(313, 23);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(102, 41);
-            this.btnSearch.TabIndex = 1;
-            this.btnSearch.Text = "&Keres";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            this.BtnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.BtnSearch.Location = new System.Drawing.Point(313, 23);
+            this.BtnSearch.Name = "BtnSearch";
+            this.BtnSearch.Size = new System.Drawing.Size(102, 41);
+            this.BtnSearch.TabIndex = 1;
+            this.BtnSearch.Text = "&Keres";
+            this.BtnSearch.UseVisualStyleBackColor = true;
+            this.BtnSearch.Click += new System.EventHandler(this.BtnSearch_Click);
             // 
             // groupBox2
             // 
@@ -114,25 +114,25 @@ namespace PubSync
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox2.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.groupBox2.Controls.Add(this.dGVMTMT);
+            this.groupBox2.Controls.Add(this.DGVMTMT);
             this.groupBox2.Location = new System.Drawing.Point(0, 111);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(777, 433);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             // 
-            // dGVMTMT
+            // DGVMTMT
             // 
-            this.dGVMTMT.AllowUserToAddRows = false;
-            this.dGVMTMT.AllowUserToDeleteRows = false;
-            this.dGVMTMT.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
-            this.dGVMTMT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dGVMTMT.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dGVMTMT.Location = new System.Drawing.Point(3, 16);
-            this.dGVMTMT.Name = "dGVMTMT";
-            this.dGVMTMT.ReadOnly = true;
-            this.dGVMTMT.Size = new System.Drawing.Size(771, 414);
-            this.dGVMTMT.TabIndex = 2;
+            this.DGVMTMT.AllowUserToAddRows = false;
+            this.DGVMTMT.AllowUserToDeleteRows = false;
+            this.DGVMTMT.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.DGVMTMT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVMTMT.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DGVMTMT.Location = new System.Drawing.Point(3, 16);
+            this.DGVMTMT.Name = "DGVMTMT";
+            this.DGVMTMT.ReadOnly = true;
+            this.DGVMTMT.Size = new System.Drawing.Size(771, 414);
+            this.DGVMTMT.TabIndex = 2;
             // 
             // FormMain
             // 
@@ -146,7 +146,7 @@ namespace PubSync
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dGVMTMT)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVMTMT)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -156,12 +156,12 @@ namespace PubSync
 
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label lblMTMTCount;
-        private System.Windows.Forms.Label lblMTMTBooks;
-        private System.Windows.Forms.TextBox txtBxAuthor;
-        private System.Windows.Forms.Label lblAuthor;
-        private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Label LblMTMTBooks;
+        private System.Windows.Forms.TextBox TxtBxAuthor;
+        private System.Windows.Forms.Label LblAuthor;
+        private System.Windows.Forms.Button BtnSearch;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.DataGridView dGVMTMT;
+        private System.Windows.Forms.DataGridView DGVMTMT;
     }
 }
 
