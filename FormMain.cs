@@ -15,70 +15,79 @@ namespace PubSync
 {
     public partial class FormMain : Form
     {
-        public FormMain()
+        public void MTMTSearch(string author, int delay)
         {
-            InitializeComponent();
-        }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            const string author = "Szekér Szabolcs";
-            
             List<MTMTBook> lstMTMBooks = new List<MTMTBook>();
 
             //MTMT oldalról adatok letöltése
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("headless");
             IWebDriver driverMTMT = new ChromeDriver(options);
-            
+
             driverMTMT.Navigate().GoToUrl("http://www.mtmt.hu");
             driverMTMT.FindElement(By.Name("searchfield")).SendKeys(author + OpenQA.Selenium.Keys.Enter);
-            Thread.Sleep(500);
+            Thread.Sleep(delay);
+            
+            //rossz szerző keresés kezelése
+
             driverMTMT.FindElement(By.PartialLinkText(author)).Click();
+            Thread.Sleep(delay);
 
             IList<IWebElement> titles = driverMTMT.FindElements(By.XPath("//div[@class='title']"));
             IList<IWebElement> authors = driverMTMT.FindElements(By.XPath("//div[@class='authors']"));
             IList<IWebElement> pubInfo = driverMTMT.FindElements(By.XPath("//div[@class='pub-info']"));
             IList<IWebElement> pubEnd = driverMTMT.FindElements(By.XPath("//div[@class='pub-end']"));
 
-            for (int i=0;i<titles.Count;i++)
+            //Osztály feltöltése adatokkal
+            if (titles.Count > 0)
             {
-                lstMTMBooks.Add(new MTMTBook() 
+                for (int i = 0; i < titles.Count; i++)
+                {
+                    lstMTMBooks.Add(new MTMTBook()
                     {
                         authors = authors[i].Text.ToString(),
                         title = titles[i].Text.ToString(),
                         pubInfo = pubInfo[i].Text.ToString(),
                         pubEnd = pubEnd[i].Text.ToString()
-                });
+                    });
+                }
             }
-
             driverMTMT.Quit();
-            lblMTMTCount.Text = lstMTMBooks.Count.ToString();
-            //MessageBox.Show("MTMT könyvek száma: " + lstMTMBooks.Count.ToString());
 
-            dGVMTMT.ColumnCount = 4;
-            dGVMTMT.Columns[0].Name = "authors";
-            dGVMTMT.Columns[1].Name = "title";
-            dGVMTMT.Columns[2].Name = "pubInfo";
-            dGVMTMT.Columns[3].Name = "pubEnd";
+            lblMTMTCount.Text = lstMTMBooks.Count.ToString()+" db";
 
-            if (lstMTMBooks.Count>0)
+            //DataGrid inicializálása és feltöltése
+            dGVMTMT.ColumnCount = 5;
+            dGVMTMT.Columns[0].Name = "id";
+            dGVMTMT.Columns[1].Name = "authors";
+            dGVMTMT.Columns[2].Name = "title";
+            dGVMTMT.Columns[3].Name = "pubInfo";
+            dGVMTMT.Columns[4].Name = "pubEnd";
+            dGVMTMT.Rows.Clear();
+
+            if (lstMTMBooks.Count > 0)
             {
                 for (int i = 0; i < lstMTMBooks.Count; i++)
                 {
-                    string[] row = new string[] { lstMTMBooks[i].authors, lstMTMBooks[i].title, lstMTMBooks[i].pubInfo, lstMTMBooks[i].pubEnd};
+                    string[] row = new string[] { (i+1).ToString(), lstMTMBooks[i].authors, lstMTMBooks[i].title, lstMTMBooks[i].pubInfo, lstMTMBooks[i].pubEnd };
                     dGVMTMT.Rows.Add(row);
                 }
             }
+            dGVMTMT.AutoResizeColumns();
+        }
 
 
-            /*
-            //Google Scholar oldalról adatok letöltése
-            IWebDriver driverGS = new ChromeDriver();
-            driverGS.Navigate().GoToUrl("https://scholar.google.com/");
-            driverGS.FindElement(By.Name("q")).SendKeys("author:"+ author + OpenQA.Selenium.Keys.Enter);
-            */
+        // ----- M A I N ------ //
+        public FormMain()
+        {
+            InitializeComponent();
+        }
 
+
+        //Keresés gomb
+        private void btnSearch_Click_1(object sender, EventArgs e)
+        {
+            MTMTSearch(txtBxAuthor.Text, 300);
         }
     }
 }
