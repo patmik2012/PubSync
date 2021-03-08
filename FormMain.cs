@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using IronPython.Hosting;
+using Microsoft.Scripting.Hosting;
 
 namespace PubSync
 {
@@ -115,6 +117,16 @@ namespace PubSync
         {
             InitializeComponent();
             DataClear();
+
+            ScriptEngine pythone = Python.CreateEngine();
+            try
+            {
+                pythone.ExecuteFile(".\\..\\..\\test.py");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Nem tudok Scholaron keresni! "+ ex.Message, "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 

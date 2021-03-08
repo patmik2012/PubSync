@@ -125,7 +125,8 @@ namespace PubSync
             // 
             this.DGVMTMT.AllowUserToAddRows = false;
             this.DGVMTMT.AllowUserToDeleteRows = false;
-            this.DGVMTMT.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.DGVMTMT.AllowUserToOrderColumns = true;
+            this.DGVMTMT.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.DGVMTMT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVMTMT.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGVMTMT.Location = new System.Drawing.Point(3, 16);
