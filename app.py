@@ -7,15 +7,15 @@ app = Flask(__name__)
 def get_auth_quick(name):
     try:
         return quick_fetch_author(name)
-    except StopIteration as exc:
-        return failed_fetch(str(exc))
+    except StopIteration:
+        return failed_fetch('Author does not have a Google Scholar profile')
 
 @app.route("/api/detailed/<name>")
 def get_auth_detailed(name):
     try:
         return detailed_fetch_author(name)
-    except StopIteration as exc:
-        return failed_fetch(str(exc))
+    except StopIteration:
+        return failed_fetch('Author does not have a Google Scholar profile')
 
 @app.route('/api/quick/<name>/<id>')
 def get_pub(name, id):
