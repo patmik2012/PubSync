@@ -25,15 +25,20 @@ namespace PubSync
         {
             //MTMT oldalról adatok letöltése
             ChromeOptions options = new ChromeOptions();
-            options.AddArgument("headless"); //Chrome böngésző elrejtése
+            //Chrome böngésző ablak elrejtése
+            options.AddArgument("headless"); 
             var driverService = ChromeDriverService.CreateDefaultService();
-            driverService.HideCommandPromptWindow = true; //ChromeDriver Windows command window elrejtáse
+            //ChromeDriver Windows parancssor ablak elrejtáse
+            driverService.HideCommandPromptWindow = true; 
             IWebDriver driverMTMT = new ChromeDriver(driverService,options);
 
             try
             {
+                //MTMT-be szerző szerint keresünk
                 driverMTMT.Navigate().GoToUrl("http://www.mtmt.hu");
                 driverMTMT.FindElement(By.Name("searchfield")).SendKeys(author + OpenQA.Selenium.Keys.Enter);
+                //több szerzős találat kezelése (pl.: Süle Zoltán (műszaki informatika), Süle Zoltán (neurobiológia))
+
                 Thread.Sleep(delay);
 
                 //rossz szerző keresés kezelése
@@ -48,7 +53,18 @@ namespace PubSync
                 }
                 Thread.Sleep(delay);
 
-                IList<IWebElement> titles = driverMTMT.FindElements(By.XPath("//div[@class='title']"));
+                //ne csak az első 20 találatot adja, hanem az összeset
+                driverMTMT.FindElement(By.XPath("/ html / body / section / div / section[2] / div[1] / div[2] / div[2] / ul / li[2] / div / button")).Click();
+                driverMTMT.FindElement(By.PartialLinkText("Teljes lista")).Click();
+                driverMTMT.FindElement(By.XPath("/ html / body / section / div / section[2] / div[1] / div[2] / div[5] / div / div / div[2] / button")).Click();
+                driverMTMT.FindElement(By.XPath("/ html / body / div[5] / div / div[2] / div / div / button")).Click();
+                //5000 találatot teszünk ki az oldalra
+                driverMTMT.FindElement(By.PartialLinkText("5000")).Click();
+                driverMTMT.FindElement(By.XPath("/ html / body / div[5] / div / div[3] / div / a")).Click();
+                Thread.Sleep(delay*2);
+
+                //lescrapeljük az adatokat
+                IList <IWebElement> titles = driverMTMT.FindElements(By.XPath("//div[@class='title']"));
                 IList<IWebElement> authors = driverMTMT.FindElements(By.XPath("//div[@class='authors']"));
                 IList<IWebElement> pubInfo = driverMTMT.FindElements(By.XPath("//div[@class='pub-info']"));
                 IList<IWebElement> pubEnd = driverMTMT.FindElements(By.XPath("//div[@class='pub-end']"));
@@ -117,7 +133,7 @@ namespace PubSync
         {
             InitializeComponent();
             DataClear();
-
+            /*
             ScriptEngine pythone = Python.CreateEngine();
             try
             {
@@ -126,7 +142,7 @@ namespace PubSync
             catch(Exception ex)
             {
                 MessageBox.Show("Nem tudok Scholaron keresni! "+ ex.Message, "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            }*/
         }
 
 
@@ -135,7 +151,7 @@ namespace PubSync
         {
             Cursor.Current = Cursors.WaitCursor;
             DataClear();
-            MTMTSearch(TxtBxAuthor.Text, 300);
+            MTMTSearch(TxtBxAuthor.Text, 250);
             DGFill();
             Cursor.Current = Cursors.Default;
         }

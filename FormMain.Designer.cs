@@ -81,7 +81,7 @@ namespace PubSync
             this.TxtBxAuthor.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.TxtBxAuthor.Location = new System.Drawing.Point(111, 30);
             this.TxtBxAuthor.Name = "TxtBxAuthor";
-            this.TxtBxAuthor.Size = new System.Drawing.Size(147, 26);
+            this.TxtBxAuthor.Size = new System.Drawing.Size(375, 26);
             this.TxtBxAuthor.TabIndex = 0;
             this.TxtBxAuthor.Text = "Süle Zoltán";
             this.TxtBxAuthor.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtBxAuthor_KeyDown);
@@ -99,7 +99,7 @@ namespace PubSync
             // BtnSearch
             // 
             this.BtnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.BtnSearch.Location = new System.Drawing.Point(313, 23);
+            this.BtnSearch.Location = new System.Drawing.Point(505, 23);
             this.BtnSearch.Name = "BtnSearch";
             this.BtnSearch.Size = new System.Drawing.Size(102, 41);
             this.BtnSearch.TabIndex = 1;
@@ -126,8 +126,6 @@ namespace PubSync
             this.DGVMTMT.AllowUserToAddRows = false;
             this.DGVMTMT.AllowUserToDeleteRows = false;
             this.DGVMTMT.AllowUserToOrderColumns = true;
-            this.DGVMTMT.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.DGVMTMT.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVMTMT.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGVMTMT.Location = new System.Drawing.Point(3, 16);
             this.DGVMTMT.Name = "DGVMTMT";
