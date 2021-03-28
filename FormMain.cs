@@ -38,7 +38,13 @@ namespace PubSync
                 driverMTMT.Navigate().GoToUrl("http://www.mtmt.hu");
                 driverMTMT.FindElement(By.Name("searchfield")).SendKeys(author + OpenQA.Selenium.Keys.Enter);
                 //több szerzős találat kezelése (pl.: Süle Zoltán (műszaki informatika), Süle Zoltán (neurobiológia))
-
+                IList<IWebElement> authorscount = driverMTMT.FindElements(By.XPath("//div[@class='item-right-inner']"));
+                if (authorscount.Count>1) {
+                    MessageBox.Show(authorscount.Count.ToString()+" különböző "+author+" nevű szerzőt találtam", "Figyelem!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    
+                    //Melyik szerzőt keressük?
+                    //authorscount[0].Text.ToString();
+                }
                 Thread.Sleep(delay);
 
                 //rossz szerző keresés kezelése
@@ -56,12 +62,19 @@ namespace PubSync
                 //ne csak az első 20 találatot adja, hanem az összeset
                 driverMTMT.FindElement(By.XPath("/ html / body / section / div / section[2] / div[1] / div[2] / div[2] / ul / li[2] / div / button")).Click();
                 driverMTMT.FindElement(By.PartialLinkText("Teljes lista")).Click();
+                Thread.Sleep(delay);
                 driverMTMT.FindElement(By.XPath("/ html / body / section / div / section[2] / div[1] / div[2] / div[5] / div / div / div[2] / button")).Click();
                 driverMTMT.FindElement(By.XPath("/ html / body / div[5] / div / div[2] / div / div / button")).Click();
                 //5000 találatot teszünk ki az oldalra
                 driverMTMT.FindElement(By.PartialLinkText("5000")).Click();
+                //*[@id="itemListTopRow"]/div[3]
                 driverMTMT.FindElement(By.XPath("/ html / body / div[5] / div / div[3] / div / a")).Click();
-                Thread.Sleep(delay*2);
+
+                //meg kell várnunk amíg betöltődik az oldal (több találatnál többet kell várnunk
+                string talalatdb = driverMTMT.FindElement(By.ClassName("search-result-short")).Text;
+                string talalatstr= talalatdb.Substring(0, talalatdb.Length - 8);
+                int talalat = Int32.Parse(talalatstr);
+                Thread.Sleep(talalat*5);
 
                 //lescrapeljük az adatokat
                 IList <IWebElement> titles = driverMTMT.FindElements(By.XPath("//div[@class='title']"));
@@ -85,9 +98,9 @@ namespace PubSync
                 }
                 driverMTMT.Quit();
             }
-            catch
+            catch (Exception MTMTWebError)
             {
-                MessageBox.Show("Nem érem el az MTMT weboldalt!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Hiba történt MTMT oldallal való interakció közben! "+MTMTWebError, "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
