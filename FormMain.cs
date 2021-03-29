@@ -12,6 +12,9 @@ using System.Windows.Forms;
 using System.Threading;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
+using System.Diagnostics;
+using System.IO;
+using System.Net.Http;
 
 namespace PubSync
 {
@@ -60,24 +63,28 @@ namespace PubSync
                 Thread.Sleep(delay);
 
                 //ne csak az első 20 találatot adja, hanem az összeset
+                //Listák gombot lenyitja
                 driverMTMT.FindElement(By.XPath("/ html / body / section / div / section[2] / div[1] / div[2] / div[2] / ul / li[2] / div / button")).Click();
+                //Teljes lista gomb
                 driverMTMT.FindElement(By.PartialLinkText("Teljes lista")).Click();
                 Thread.Sleep(delay);
+                //1-20 lapok gombra kattint
                 driverMTMT.FindElement(By.XPath("/ html / body / section / div / section[2] / div[1] / div[2] / div[5] / div / div / div[2] / button")).Click();
+                //20-at lenyitjuk
                 driverMTMT.FindElement(By.XPath("/ html / body / div[5] / div / div[2] / div / div / button")).Click();
-                //5000 találatot teszünk ki az oldalra
+                //5000-re kattintunk
                 driverMTMT.FindElement(By.PartialLinkText("5000")).Click();
-                //*[@id="itemListTopRow"]/div[3]
+                //kiválasztjuk az elsőt
                 driverMTMT.FindElement(By.XPath("/ html / body / div[5] / div / div[3] / div / a")).Click();
 
-                //meg kell várnunk amíg betöltődik az oldal (több találatnál többet kell várnunk
+                //meg kell várnunk amíg betöltődik az oldal (több találatnál többet kell várnunk)
                 string talalatdb = driverMTMT.FindElement(By.ClassName("search-result-short")).Text;
                 string talalatstr= talalatdb.Substring(0, talalatdb.Length - 8);
                 int talalat = Int32.Parse(talalatstr);
                 Thread.Sleep(talalat*5);
 
                 //lescrapeljük az adatokat
-                IList <IWebElement> titles = driverMTMT.FindElements(By.XPath("//div[@class='title']"));
+                IList<IWebElement> titles = driverMTMT.FindElements(By.XPath("//div[@class='title']"));
                 IList<IWebElement> authors = driverMTMT.FindElements(By.XPath("//div[@class='authors']"));
                 IList<IWebElement> pubInfo = driverMTMT.FindElements(By.XPath("//div[@class='pub-info']"));
                 IList<IWebElement> pubEnd = driverMTMT.FindElements(By.XPath("//div[@class='pub-end']"));
@@ -146,16 +153,22 @@ namespace PubSync
         {
             InitializeComponent();
             DataClear();
+
+            //app.py PYthon Flask script indítás - Scholar keresés indítás
+            Thread apppyth = new Thread(new ThreadStart(run_cmd));
+            apppyth.Start();
+
             /*
             ScriptEngine pythone = Python.CreateEngine();
             try
             {
-                pythone.ExecuteFile(".\\..\\..\\test.py");
+                pythone.ExecuteFile(".\\..\\..\\app.py");
             }
             catch(Exception ex)
             {
                 MessageBox.Show("Nem tudok Scholaron keresni! "+ ex.Message, "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }*/
+            }
+            */
         }
 
 
@@ -163,6 +176,12 @@ namespace PubSync
         private void BtnSearch_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
+
+            //Scholar eredmények letöltése            
+            HttpClient httpClient = new HttpClient();
+            var result = httpClient.GetAsync("http://localhost:5000/api/quick/Szek%C3%A9r%20Szabolcs").Result;
+            result.Content.ReadAsStringAsync();
+
             DataClear();
             MTMTSearch(TxtBxAuthor.Text, 250);
             DGFill();
@@ -177,5 +196,30 @@ namespace PubSync
                 BtnSearch.PerformClick();
             }
         }
+
+        private void run_cmd()
+        {
+
+            string fileName = @"C:\\Users\\apatakm\\source\\repos\\PubSync\\app.py";
+
+            
+            Process p = new Process();
+            p.StartInfo = new ProcessStartInfo(@"C:\Python39\python.exe", fileName)
+            {
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+            p.Start();
+
+            string output = p.StandardOutput.ReadToEnd();
+            p.WaitForExit();
+
+            Console.WriteLine(output);
+
+            Console.ReadLine();
+
+        }
+
     }
 }
