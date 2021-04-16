@@ -1,0 +1,52 @@
+{"affiliation":"University of Pannonia",
+"citedby":5,
+"coauthors":["Agnes Vathy-Fogarassy","Gy\u00f6rgy Fogarassy"],
+"email_domain":"@dcs.uni-pannon.hu",
+"interests":["data mining","healthcare informatics","control group selection","text processing"],
+"name":"Szek\u00e9r Szabolcs",
+"number_of_publications":9,
+"publications":[
+
+{"_id":0,
+"num_citations":2,
+"pub_year":"2016",
+"title":"Kontrollcsoport-gener\u00e1l\u00e1si lehet\u0151s\u00e9gek retrospekt\u00edv eg\u00e9szs\u00e9g\u00fcgyi vizsg\u00e1latokhoz"},
+
+{"_id":1,
+"num_citations":1,
+"pub_year":"2019",
+"title":"How Can the Similarity of the Case and Control Groups be Measured in Case-Control Studies?"},
+
+{"_id":2,
+"num_citations":1,
+"pub_year":"2019",
+"title":"Application of Named Entity Recognition Methods to Extract Information from Echocardiography Reports."},
+
+{"_id":3,
+"num_citations":1,
+"pub_year":"2017",
+"title":"Comparison of Control Group Generating Methods."},
+
+{"_id":4,
+"num_citations":0,
+"pub_year":"2020","title":"Weighted nearest neighbours-based control group selection method for observational studies"},
+
+{"_id":5,
+"num_citations":0,
+"pub_year":"2020",
+"title":"The Efficiency of Different Distance Metrics for Keyword-Based Search in Medical Documents: A Short Case Study"},
+
+{"_id":6,
+"num_citations":0,
+"pub_year":"2019",
+"title":"Application of Text Mining Methods on Unstructured Hungarian Echocardiogram Documents"},
+
+{"_id":7,
+"num_citations":0,
+"pub_year":"2018",
+"title":"Measuring the similarity of two cohorts in the n-dimensional space"},
+
+{"_id":8,
+"num_citations":0,
+"pub_year":"2018",
+"title":"The Effect of Latent Binary Variables on the Uncertainty of the Prediction of a Dichotomous Outcome Using Logistic Regression Based Propensity Score Matching."}]}

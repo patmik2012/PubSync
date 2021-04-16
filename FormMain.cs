@@ -15,6 +15,8 @@ using Microsoft.Scripting.Hosting;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
+using System.Web;
+using Newtonsoft.Json;
 
 namespace PubSync
 {
@@ -23,7 +25,7 @@ namespace PubSync
         
         List<Book> lstBooks = new List<Book>();
 
-
+        //MTMT-ből eredmények letöltése
         public void MTMTSearch(string author, int delay)
         {
             //MTMT oldalról adatok letöltése
@@ -112,6 +114,20 @@ namespace PubSync
 
         }
 
+        //Scholar eredmények letöltése            
+        public void GSSearch(string author)
+        {
+            //szerző műveinek lekérdezése
+            HttpClient httpClient = new HttpClient();            
+            var result = httpClient.GetAsync("http://localhost:5000/api/quick/"+author).Result;
+            result.Content.ReadAsStringAsync();
+
+            //JSON DeSerializáció
+            var jsonString = result.Content.ReadAsStringAsync();
+            jsonString.Wait();
+            BookGS BookGS = JsonConvert.DeserializeObject<BookGS>(jsonString.Result);
+        }
+
         //DataGrid inicializálása és feltöltése
         public void DGFill()
         { 
@@ -158,17 +174,6 @@ namespace PubSync
             Thread apppyth = new Thread(new ThreadStart(run_cmd));
             apppyth.Start();
 
-            /*
-            ScriptEngine pythone = Python.CreateEngine();
-            try
-            {
-                pythone.ExecuteFile(".\\..\\..\\app.py");
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Nem tudok Scholaron keresni! "+ ex.Message, "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            */
         }
 
 
@@ -177,13 +182,9 @@ namespace PubSync
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            //Scholar eredmények letöltése            
-            HttpClient httpClient = new HttpClient();
-            var result = httpClient.GetAsync("http://localhost:5000/api/quick/Szek%C3%A9r%20Szabolcs").Result;
-            result.Content.ReadAsStringAsync();
-
             DataClear();
             MTMTSearch(TxtBxAuthor.Text, 250);
+            GSSearch(TxtBxAuthor.Text);
             DGFill();
             Cursor.Current = Cursors.Default;
         }
