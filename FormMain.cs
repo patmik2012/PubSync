@@ -118,14 +118,19 @@ namespace PubSync
         public void GSSearch(string author)
         {
             //szerző műveinek lekérdezése
-            HttpClient httpClient = new HttpClient();            
+
+            HttpClient httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("Accept", "application/json;charset=UTF-8");
             var result = httpClient.GetAsync("http://localhost:5000/api/quick/"+author).Result;
             result.Content.ReadAsStringAsync();
+            
+
 
             //JSON DeSerializáció
             var jsonString = result.Content.ReadAsStringAsync();
             jsonString.Wait();
             BookGS BookGS = JsonConvert.DeserializeObject<BookGS>(jsonString.Result);
+            
         }
 
         //DataGrid inicializálása és feltöltése
