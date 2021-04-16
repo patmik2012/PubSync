@@ -30,6 +30,11 @@ namespace PubSync
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.gBSettings = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.mTxtBDelay = new System.Windows.Forms.MaskedTextBox();
+            this.lblGSBooks = new System.Windows.Forms.Label();
+            this.cBSettings = new System.Windows.Forms.CheckBox();
             this.lblMTMTCount = new System.Windows.Forms.Label();
             this.LblMTMTBooks = new System.Windows.Forms.Label();
             this.TxtBxAuthor = new System.Windows.Forms.TextBox();
@@ -38,6 +43,7 @@ namespace PubSync
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.DGVMTMT = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
+            this.gBSettings.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVMTMT)).BeginInit();
             this.SuspendLayout();
@@ -47,6 +53,9 @@ namespace PubSync
             this.groupBox1.AutoSize = true;
             this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox1.BackColor = System.Drawing.Color.Silver;
+            this.groupBox1.Controls.Add(this.gBSettings);
+            this.groupBox1.Controls.Add(this.lblGSBooks);
+            this.groupBox1.Controls.Add(this.cBSettings);
             this.groupBox1.Controls.Add(this.lblMTMTCount);
             this.groupBox1.Controls.Add(this.LblMTMTBooks);
             this.groupBox1.Controls.Add(this.TxtBxAuthor);
@@ -55,9 +64,59 @@ namespace PubSync
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(777, 105);
+            this.groupBox1.Size = new System.Drawing.Size(777, 124);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
+            // 
+            // gBSettings
+            // 
+            this.gBSettings.Controls.Add(this.label1);
+            this.gBSettings.Controls.Add(this.mTxtBDelay);
+            this.gBSettings.Location = new System.Drawing.Point(613, 12);
+            this.gBSettings.Name = "gBSettings";
+            this.gBSettings.Size = new System.Drawing.Size(152, 93);
+            this.gBSettings.TabIndex = 14;
+            this.gBSettings.TabStop = false;
+            this.gBSettings.Text = "Beállítások";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(61, 13);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Késleltetés:";
+            // 
+            // mTxtBDelay
+            // 
+            this.mTxtBDelay.Location = new System.Drawing.Point(73, 19);
+            this.mTxtBDelay.Mask = "000";
+            this.mTxtBDelay.Name = "mTxtBDelay";
+            this.mTxtBDelay.Size = new System.Drawing.Size(36, 20);
+            this.mTxtBDelay.TabIndex = 14;
+            this.mTxtBDelay.Text = "250";
+            this.mTxtBDelay.ValidatingType = typeof(int);
+            // 
+            // lblGSBooks
+            // 
+            this.lblGSBooks.AutoSize = true;
+            this.lblGSBooks.Location = new System.Drawing.Point(229, 75);
+            this.lblGSBooks.Name = "lblGSBooks";
+            this.lblGSBooks.Size = new System.Drawing.Size(118, 13);
+            this.lblGSBooks.TabIndex = 12;
+            this.lblGSBooks.Text = "Google Scholar művek:";
+            // 
+            // cBSettings
+            // 
+            this.cBSettings.AutoSize = true;
+            this.cBSettings.Location = new System.Drawing.Point(528, 75);
+            this.cBSettings.Name = "cBSettings";
+            this.cBSettings.Size = new System.Drawing.Size(79, 17);
+            this.cBSettings.TabIndex = 11;
+            this.cBSettings.Text = "Beállítások";
+            this.cBSettings.UseVisualStyleBackColor = true;
+            this.cBSettings.CheckedChanged += new System.EventHandler(this.cBSettings_CheckedChanged);
             // 
             // lblMTMTCount
             // 
@@ -144,6 +203,8 @@ namespace PubSync
             this.Text = "PubSync";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.gBSettings.ResumeLayout(false);
+            this.gBSettings.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVMTMT)).EndInit();
             this.ResumeLayout(false);
@@ -161,6 +222,11 @@ namespace PubSync
         private System.Windows.Forms.Button BtnSearch;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView DGVMTMT;
+        private System.Windows.Forms.Label lblGSBooks;
+        private System.Windows.Forms.CheckBox cBSettings;
+        private System.Windows.Forms.GroupBox gBSettings;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.MaskedTextBox mTxtBDelay;
     }
 }
 

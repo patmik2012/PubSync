@@ -123,14 +123,14 @@ namespace PubSync
             httpClient.DefaultRequestHeaders.Add("Accept", "application/json;charset=UTF-8");
             var result = httpClient.GetAsync("http://localhost:5000/api/quick/"+author).Result;
             result.Content.ReadAsStringAsync();
-            
-
 
             //JSON DeSerializáció
             var jsonString = result.Content.ReadAsStringAsync();
             jsonString.Wait();
             BookGS BookGS = JsonConvert.DeserializeObject<BookGS>(jsonString.Result);
-            
+
+            lblGSBooks.Text = "Művek száma a Google Scholarban: " + BookGS.number_of_publications.ToString() + " db"; ;
+
         }
 
         //DataGrid inicializálása és feltöltése
@@ -159,6 +159,7 @@ namespace PubSync
         public void DataClear()
         {
             LblMTMTBooks.Visible = false;
+            lblGSBooks.Visible = false;
             lstBooks.Clear();
             DGVMTMT.Rows.Clear();
         }
@@ -166,6 +167,7 @@ namespace PubSync
         public void DataExist()
         {
             LblMTMTBooks.Visible = true;
+            lblGSBooks.Visible = true;
         }
 
 
@@ -173,6 +175,7 @@ namespace PubSync
         public FormMain()
         {
             InitializeComponent();
+            gBSettings.Visible = false;
             DataClear();
 
             //app.py PYthon Flask script indítás - Scholar keresés indítás
@@ -188,7 +191,8 @@ namespace PubSync
             Cursor.Current = Cursors.WaitCursor;
 
             DataClear();
-            MTMTSearch(TxtBxAuthor.Text, 250);
+            if (Int32.Parse(mTxtBDelay.Text) < 200) { mTxtBDelay.Text = "200"; }
+            MTMTSearch(TxtBxAuthor.Text, Int32.Parse(mTxtBDelay.Text));
             GSSearch(TxtBxAuthor.Text);
             DGFill();
             Cursor.Current = Cursors.Default;
@@ -227,5 +231,18 @@ namespace PubSync
 
         }
 
+        //Beállítások megjelenítése/elrejtése
+        private void cBSettings_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cBSettings.Checked)
+            {
+                gBSettings.Visible= true;
+            }
+            else
+            {
+                gBSettings.Visible = false;
+            }
+
+        }
     }
 }
