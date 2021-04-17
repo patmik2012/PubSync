@@ -179,16 +179,24 @@ namespace PubSync
             DGVMTMT.Columns[2].Name = "title";
             DGVMTMT.Columns[3].Name = "pubInfo";
             DGVMTMT.Columns[4].Name = "pubEnd";
+            int Match = 0;
 
             if (lstBooks.Count > 0)
             {
                 DataExist();
                 LblMTMTBooks.Text= "Művek száma az MTMT-ben: " + lstBooks.Count.ToString() + " db";
+
                 for (int i = 0; i < lstBooks.Count; i++)
                 {
+                    if (lstBooks[i].Match)
+                    {
+                        Match++;
+                    }
                     string[] row = new string[] { (i + 1).ToString(), lstBooks[i].MTMTauthors, lstBooks[i].MTMTtitle, lstBooks[i].MTMTpubInfo, lstBooks[i].MTMTpubEnd };
                     DGVMTMT.Rows.Add(row);
                 }
+
+                lblMatch.Text = "Egyezések: " +Match.ToString();
             }
             DGVMTMT.AutoResizeColumns();
         }
@@ -197,6 +205,7 @@ namespace PubSync
         {
             LblMTMTBooks.Visible = false;
             lblGSBooks.Visible = false;
+            lblMatch.Visible = false;
             lstBooks.Clear();
             DGVMTMT.Rows.Clear();
         }
@@ -205,6 +214,7 @@ namespace PubSync
         {
             LblMTMTBooks.Visible = true;
             lblGSBooks.Visible = true;
+            lblMatch.Visible = true;
         }
 
 

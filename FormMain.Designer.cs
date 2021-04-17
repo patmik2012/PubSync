@@ -31,6 +31,8 @@ namespace PubSync
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.gBSettings = new System.Windows.Forms.GroupBox();
+            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.mTxtBDelay = new System.Windows.Forms.MaskedTextBox();
             this.lblGSBooks = new System.Windows.Forms.Label();
@@ -42,8 +44,7 @@ namespace PubSync
             this.BtnSearch = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.DGVMTMT = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.lblMatch = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.gBSettings.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -55,6 +56,7 @@ namespace PubSync
             this.groupBox1.AutoSize = true;
             this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox1.BackColor = System.Drawing.Color.Silver;
+            this.groupBox1.Controls.Add(this.lblMatch);
             this.groupBox1.Controls.Add(this.gBSettings);
             this.groupBox1.Controls.Add(this.lblGSBooks);
             this.groupBox1.Controls.Add(this.cBSettings);
@@ -83,6 +85,25 @@ namespace PubSync
             this.gBSettings.TabStop = false;
             this.gBSettings.Text = "Beállítások";
             // 
+            // maskedTextBox1
+            // 
+            this.maskedTextBox1.Location = new System.Drawing.Point(110, 57);
+            this.maskedTextBox1.Mask = "000";
+            this.maskedTextBox1.Name = "maskedTextBox1";
+            this.maskedTextBox1.Size = new System.Drawing.Size(36, 20);
+            this.maskedTextBox1.TabIndex = 17;
+            this.maskedTextBox1.Text = "10";
+            this.maskedTextBox1.ValidatingType = typeof(int);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 63);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(98, 13);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Egyezés (karakter):";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -105,7 +126,7 @@ namespace PubSync
             // lblGSBooks
             // 
             this.lblGSBooks.AutoSize = true;
-            this.lblGSBooks.Location = new System.Drawing.Point(229, 75);
+            this.lblGSBooks.Location = new System.Drawing.Point(205, 75);
             this.lblGSBooks.Name = "lblGSBooks";
             this.lblGSBooks.Size = new System.Drawing.Size(118, 13);
             this.lblGSBooks.TabIndex = 12;
@@ -133,7 +154,7 @@ namespace PubSync
             // LblMTMTBooks
             // 
             this.LblMTMTBooks.AutoSize = true;
-            this.LblMTMTBooks.Location = new System.Drawing.Point(32, 76);
+            this.LblMTMTBooks.Location = new System.Drawing.Point(32, 75);
             this.LblMTMTBooks.Name = "LblMTMTBooks";
             this.LblMTMTBooks.Size = new System.Drawing.Size(77, 13);
             this.LblMTMTBooks.TabIndex = 9;
@@ -196,24 +217,14 @@ namespace PubSync
             this.DGVMTMT.Size = new System.Drawing.Size(771, 414);
             this.DGVMTMT.TabIndex = 2;
             // 
-            // label2
+            // lblMatch
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 63);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 13);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Egyezés (karakter):";
-            // 
-            // maskedTextBox1
-            // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(110, 57);
-            this.maskedTextBox1.Mask = "000";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(36, 20);
-            this.maskedTextBox1.TabIndex = 17;
-            this.maskedTextBox1.Text = "10";
-            this.maskedTextBox1.ValidatingType = typeof(int);
+            this.lblMatch.AutoSize = true;
+            this.lblMatch.Location = new System.Drawing.Point(408, 75);
+            this.lblMatch.Name = "lblMatch";
+            this.lblMatch.Size = new System.Drawing.Size(62, 13);
+            this.lblMatch.TabIndex = 15;
+            this.lblMatch.Text = "Egyezések:";
             // 
             // FormMain
             // 
@@ -252,6 +263,7 @@ namespace PubSync
         private System.Windows.Forms.MaskedTextBox mTxtBDelay;
         private System.Windows.Forms.MaskedTextBox maskedTextBox1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblMatch;
     }
 }
 
