@@ -31,7 +31,7 @@ namespace PubSync
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.gBSettings = new System.Windows.Forms.GroupBox();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.mTBMatch = new System.Windows.Forms.MaskedTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.mTxtBDelay = new System.Windows.Forms.MaskedTextBox();
@@ -74,7 +74,7 @@ namespace PubSync
             // 
             // gBSettings
             // 
-            this.gBSettings.Controls.Add(this.maskedTextBox1);
+            this.gBSettings.Controls.Add(this.mTBMatch);
             this.gBSettings.Controls.Add(this.label2);
             this.gBSettings.Controls.Add(this.label1);
             this.gBSettings.Controls.Add(this.mTxtBDelay);
@@ -85,15 +85,15 @@ namespace PubSync
             this.gBSettings.TabStop = false;
             this.gBSettings.Text = "Beállítások";
             // 
-            // maskedTextBox1
+            // mTBMatch
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(110, 57);
-            this.maskedTextBox1.Mask = "000";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(36, 20);
-            this.maskedTextBox1.TabIndex = 17;
-            this.maskedTextBox1.Text = "10";
-            this.maskedTextBox1.ValidatingType = typeof(int);
+            this.mTBMatch.Location = new System.Drawing.Point(110, 57);
+            this.mTBMatch.Mask = "000";
+            this.mTBMatch.Name = "mTBMatch";
+            this.mTBMatch.Size = new System.Drawing.Size(36, 20);
+            this.mTBMatch.TabIndex = 17;
+            this.mTBMatch.Text = "10";
+            this.mTBMatch.ValidatingType = typeof(int);
             // 
             // label2
             // 
@@ -261,7 +261,7 @@ namespace PubSync
         private System.Windows.Forms.GroupBox gBSettings;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MaskedTextBox mTxtBDelay;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.MaskedTextBox mTBMatch;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblMatch;
     }

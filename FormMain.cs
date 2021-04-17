@@ -154,14 +154,16 @@ namespace PubSync
                 {
                     for (int MTMT = 0; MTMT < lstBooks.Count; MTMT++)
                     {
-                        if (lstBooks[MTMT].MTMTtitle==BookGS.publications[GS].title)
+                        //ha rövidebb a sztring, mint a substring, akkor a teljes sztringet kell nézni
+
+
+                        if (lstBooks[MTMT].MTMTtitle.Substring(0, Int32.Parse(mTBMatch.Text)-1)==BookGS.publications[GS].title.Substring(0,Int32.Parse(mTBMatch.Text)-1))
                         {
                             //egyezést találtam
                             lstBooks[MTMT].GStitle = BookGS.publications[GS].title;
                             lstBooks[MTMT].GSpub_year = BookGS.publications[GS].pub_year;
                             lstBooks[MTMT].GSnum_citations = BookGS.publications[GS].num_citations;
                             lstBooks[MTMT].Match = true;
-                            //MessageBox.Show(lstBooks[MTMT].MTMTtitle + " GS: " + BookGS.publications[GS].title+"  "+ lstBooks[MTMT].GStitle);
                         }
                     }
                 }
@@ -172,13 +174,16 @@ namespace PubSync
 
         //DataGrid inicializálása és feltöltése
         public void DGFill()
-        { 
-            DGVMTMT.ColumnCount = 5;
-            DGVMTMT.Columns[0].Name = "id";
-            DGVMTMT.Columns[1].Name = "authors";
-            DGVMTMT.Columns[2].Name = "title";
-            DGVMTMT.Columns[3].Name = "pubInfo";
-            DGVMTMT.Columns[4].Name = "pubEnd";
+        {
+            DGVMTMT.ColumnCount = 8;
+            DGVMTMT.Columns[0].Name = "#";
+            DGVMTMT.Columns[1].Name = "MTMTtitle";
+            DGVMTMT.Columns[2].Name = "GStitle";
+            DGVMTMT.Columns[3].Name = "authors";
+            DGVMTMT.Columns[4].Name = "pub_year";
+            DGVMTMT.Columns[5].Name = "num_citation";
+            DGVMTMT.Columns[6].Name = "pubInfo";
+            DGVMTMT.Columns[7].Name = "pubEnd";
             int Match = 0;
 
             if (lstBooks.Count > 0)
@@ -192,11 +197,18 @@ namespace PubSync
                     {
                         Match++;
                     }
-                    string[] row = new string[] { (i + 1).ToString(), lstBooks[i].MTMTauthors, lstBooks[i].MTMTtitle, lstBooks[i].MTMTpubInfo, lstBooks[i].MTMTpubEnd };
+                    string[] row = new string[] { (i + 1).ToString(), 
+                                                  lstBooks[i].MTMTtitle, 
+                                                  lstBooks[i].GStitle, 
+                                                  lstBooks[i].MTMTauthors, 
+                                                  lstBooks[i].GSpub_year,
+                                                  lstBooks[i].GSnum_citations.ToString(),
+                                                  lstBooks[i].MTMTpubInfo, 
+                                                  lstBooks[i].MTMTpubEnd };
                     DGVMTMT.Rows.Add(row);
                 }
 
-                lblMatch.Text = "Egyezések: " +Match.ToString();
+                lblMatch.Text = "Egyezések: " +Match.ToString()+ " db";
             }
             DGVMTMT.AutoResizeColumns();
         }
