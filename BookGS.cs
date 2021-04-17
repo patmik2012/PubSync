@@ -11,9 +11,13 @@ namespace PubSync
         public class publication
         {
             public int _id;//:0,
+            //4
             public int num_citations;//:2,
+            //0
             public string pub_year;//:"2016",
+            //"2020"
             public string title;//:"Kontrollcsoport-gener\u00e1l\u00e1si lehet\u0151s\u00e9gek retrospekt\u00edv eg\u00e9szs\u00e9g\u00fcgyi vizsg\u00e1latokhoz"},
+            //"Weighted nearest neighbours-based control group selection method for observational studies"
         }
 
         public string affiliation; //:"University of Pannonia",

@@ -114,11 +114,29 @@ namespace PubSync
 
         }
 
+        //app.py Python Flask script - Scholar keresés 
+        private void run_cmd()
+        {
+            string fileName = @"app.py";
+            Process p = new Process();
+            p.StartInfo = new ProcessStartInfo(@"C:\Python39\python.exe", fileName)
+            {
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+            p.Start();
+
+            string output = p.StandardOutput.ReadToEnd();
+            p.WaitForExit();
+            Console.WriteLine(output);
+            Console.ReadLine();
+        }
+
         //Scholar eredmények letöltése            
         public void GSSearch(string author)
         {
             //szerző műveinek lekérdezése
-
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Add("Accept", "application/json;charset=UTF-8");
             var result = httpClient.GetAsync("http://localhost:5000/api/quick/"+author).Result;
@@ -129,8 +147,27 @@ namespace PubSync
             jsonString.Wait();
             BookGS BookGS = JsonConvert.DeserializeObject<BookGS>(jsonString.Result);
 
-            lblGSBooks.Text = "Művek száma a Google Scholarban: " + BookGS.number_of_publications.ToString() + " db"; ;
+            //Scholar könyv MTMT könyhöz rendelése
+            if (BookGS.number_of_publications > 0)
+            {
+                for (int GS = 0; GS < BookGS.publications.Count; GS++)
+                {
+                    for (int MTMT = 0; MTMT < lstBooks.Count; MTMT++)
+                    {
+                        if (lstBooks[MTMT].MTMTtitle==BookGS.publications[GS].title)
+                        {
+                            //egyezést találtam
+                            lstBooks[MTMT].GStitle = BookGS.publications[GS].title;
+                            lstBooks[MTMT].GSpub_year = BookGS.publications[GS].pub_year;
+                            lstBooks[MTMT].GSnum_citations = BookGS.publications[GS].num_citations;
+                            lstBooks[MTMT].Match = true;
+                            //MessageBox.Show(lstBooks[MTMT].MTMTtitle + " GS: " + BookGS.publications[GS].title+"  "+ lstBooks[MTMT].GStitle);
+                        }
+                    }
+                }
+            }
 
+            lblGSBooks.Text = "Művek száma a Google Scholarban: " + BookGS.number_of_publications.ToString() + " db";
         }
 
         //DataGrid inicializálása és feltöltése
@@ -178,12 +215,11 @@ namespace PubSync
             gBSettings.Visible = false;
             DataClear();
 
-            //app.py PYthon Flask script indítás - Scholar keresés indítás
+            //app.py Python Flask script indítás - Scholar keresés indítás
             Thread apppyth = new Thread(new ThreadStart(run_cmd));
             apppyth.Start();
 
         }
-
 
         //Keresés gomb
         private void BtnSearch_Click(object sender, EventArgs e)
@@ -205,30 +241,6 @@ namespace PubSync
             {
                 BtnSearch.PerformClick();
             }
-        }
-
-        private void run_cmd()
-        {
-
-            string fileName = @"C:\\Users\\apatakm\\source\\repos\\PubSync\\app.py";
-
-            
-            Process p = new Process();
-            p.StartInfo = new ProcessStartInfo(@"C:\Python39\python.exe", fileName)
-            {
-                RedirectStandardOutput = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-            p.Start();
-
-            string output = p.StandardOutput.ReadToEnd();
-            p.WaitForExit();
-
-            Console.WriteLine(output);
-
-            Console.ReadLine();
-
         }
 
         //Beállítások megjelenítése/elrejtése

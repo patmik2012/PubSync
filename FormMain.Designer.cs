@@ -42,6 +42,8 @@ namespace PubSync
             this.BtnSearch = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.DGVMTMT = new System.Windows.Forms.DataGridView();
+            this.label2 = new System.Windows.Forms.Label();
+            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1.SuspendLayout();
             this.gBSettings.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -70,6 +72,8 @@ namespace PubSync
             // 
             // gBSettings
             // 
+            this.gBSettings.Controls.Add(this.maskedTextBox1);
+            this.gBSettings.Controls.Add(this.label2);
             this.gBSettings.Controls.Add(this.label1);
             this.gBSettings.Controls.Add(this.mTxtBDelay);
             this.gBSettings.Location = new System.Drawing.Point(613, 12);
@@ -82,7 +86,7 @@ namespace PubSync
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 26);
+            this.label1.Location = new System.Drawing.Point(43, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(61, 13);
             this.label1.TabIndex = 15;
@@ -90,7 +94,7 @@ namespace PubSync
             // 
             // mTxtBDelay
             // 
-            this.mTxtBDelay.Location = new System.Drawing.Point(73, 19);
+            this.mTxtBDelay.Location = new System.Drawing.Point(110, 23);
             this.mTxtBDelay.Mask = "000";
             this.mTxtBDelay.Name = "mTxtBDelay";
             this.mTxtBDelay.Size = new System.Drawing.Size(36, 20);
@@ -142,7 +146,7 @@ namespace PubSync
             this.TxtBxAuthor.Name = "TxtBxAuthor";
             this.TxtBxAuthor.Size = new System.Drawing.Size(375, 26);
             this.TxtBxAuthor.TabIndex = 0;
-            this.TxtBxAuthor.Text = "Süle Zoltán";
+            this.TxtBxAuthor.Text = "Szekér Szabolcs";
             this.TxtBxAuthor.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtBxAuthor_KeyDown);
             // 
             // LblAuthor
@@ -192,6 +196,25 @@ namespace PubSync
             this.DGVMTMT.Size = new System.Drawing.Size(771, 414);
             this.DGVMTMT.TabIndex = 2;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 63);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(98, 13);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Egyezés (karakter):";
+            // 
+            // maskedTextBox1
+            // 
+            this.maskedTextBox1.Location = new System.Drawing.Point(110, 57);
+            this.maskedTextBox1.Mask = "000";
+            this.maskedTextBox1.Name = "maskedTextBox1";
+            this.maskedTextBox1.Size = new System.Drawing.Size(36, 20);
+            this.maskedTextBox1.TabIndex = 17;
+            this.maskedTextBox1.Text = "10";
+            this.maskedTextBox1.ValidatingType = typeof(int);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -227,6 +250,8 @@ namespace PubSync
         private System.Windows.Forms.GroupBox gBSettings;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MaskedTextBox mTxtBDelay;
+        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.Label label2;
     }
 }
 
