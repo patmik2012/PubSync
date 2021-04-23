@@ -145,6 +145,7 @@ namespace PubSync
             //JSON DeSerializáció
             var jsonString = result.Content.ReadAsStringAsync();
             jsonString.Wait();
+//ha nincs Scholar eredmény null-ra nem lehet deszerializáció
             BookGS BookGS = JsonConvert.DeserializeObject<BookGS>(jsonString.Result);
 
             //Scholar könyv MTMT könyhöz rendelése
@@ -154,17 +155,26 @@ namespace PubSync
                 {
                     for (int MTMT = 0; MTMT < lstBooks.Count; MTMT++)
                     {
-                        //ha rövidebb a sztring, mint a substring, akkor a teljes sztringet kell nézni
+ //ha rövidebb a sztring, mint a substring, akkor a teljes sztringet kell nézni
 
 
-                        if (lstBooks[MTMT].MTMTtitle.Substring(0, Int32.Parse(mTBMatch.Text)-1)==BookGS.publications[GS].title.Substring(0,Int32.Parse(mTBMatch.Text)-1))
+                        if (cBMatch.Checked && (lstBooks[MTMT].MTMTtitle.Substring(0, Int32.Parse(mTBMatch.Text) - 1) == BookGS.publications[GS].title.Substring(0, Int32.Parse(mTBMatch.Text) - 1)))
                         {
-                            //egyezést találtam
+                            //egyezést találtam részcím vizsgálattal
                             lstBooks[MTMT].GStitle = BookGS.publications[GS].title;
                             lstBooks[MTMT].GSpub_year = BookGS.publications[GS].pub_year;
                             lstBooks[MTMT].GSnum_citations = BookGS.publications[GS].num_citations;
                             lstBooks[MTMT].Match = true;
                         }
+                        else if (lstBooks[MTMT].MTMTtitle == BookGS.publications[GS].title)
+                        {
+                            //pontos egyezést találtam
+                            lstBooks[MTMT].GStitle = BookGS.publications[GS].title;
+                            lstBooks[MTMT].GSpub_year = BookGS.publications[GS].pub_year;
+                            lstBooks[MTMT].GSnum_citations = BookGS.publications[GS].num_citations;
+                            lstBooks[MTMT].Match = true;
+                        }   
+                        
                     }
                 }
             }

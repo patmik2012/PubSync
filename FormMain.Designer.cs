@@ -30,9 +30,9 @@ namespace PubSync
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblMatch = new System.Windows.Forms.Label();
             this.gBSettings = new System.Windows.Forms.GroupBox();
             this.mTBMatch = new System.Windows.Forms.MaskedTextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.mTxtBDelay = new System.Windows.Forms.MaskedTextBox();
             this.lblGSBooks = new System.Windows.Forms.Label();
@@ -44,7 +44,7 @@ namespace PubSync
             this.BtnSearch = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.DGVMTMT = new System.Windows.Forms.DataGridView();
-            this.lblMatch = new System.Windows.Forms.Label();
+            this.cBMatch = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.gBSettings.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -72,10 +72,19 @@ namespace PubSync
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             // 
+            // lblMatch
+            // 
+            this.lblMatch.AutoSize = true;
+            this.lblMatch.Location = new System.Drawing.Point(408, 75);
+            this.lblMatch.Name = "lblMatch";
+            this.lblMatch.Size = new System.Drawing.Size(62, 13);
+            this.lblMatch.TabIndex = 15;
+            this.lblMatch.Text = "Egyezések:";
+            // 
             // gBSettings
             // 
+            this.gBSettings.Controls.Add(this.cBMatch);
             this.gBSettings.Controls.Add(this.mTBMatch);
-            this.gBSettings.Controls.Add(this.label2);
             this.gBSettings.Controls.Add(this.label1);
             this.gBSettings.Controls.Add(this.mTxtBDelay);
             this.gBSettings.Location = new System.Drawing.Point(613, 12);
@@ -94,15 +103,6 @@ namespace PubSync
             this.mTBMatch.TabIndex = 17;
             this.mTBMatch.Text = "10";
             this.mTBMatch.ValidatingType = typeof(int);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 63);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 13);
-            this.label2.TabIndex = 16;
-            this.label2.Text = "Egyezés (karakter):";
             // 
             // label1
             // 
@@ -217,14 +217,17 @@ namespace PubSync
             this.DGVMTMT.Size = new System.Drawing.Size(771, 414);
             this.DGVMTMT.TabIndex = 2;
             // 
-            // lblMatch
+            // cBMatch
             // 
-            this.lblMatch.AutoSize = true;
-            this.lblMatch.Location = new System.Drawing.Point(408, 75);
-            this.lblMatch.Name = "lblMatch";
-            this.lblMatch.Size = new System.Drawing.Size(62, 13);
-            this.lblMatch.TabIndex = 15;
-            this.lblMatch.Text = "Egyezések:";
+            this.cBMatch.AutoSize = true;
+            this.cBMatch.Checked = true;
+            this.cBMatch.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cBMatch.Location = new System.Drawing.Point(11, 59);
+            this.cBMatch.Name = "cBMatch";
+            this.cBMatch.Size = new System.Drawing.Size(96, 17);
+            this.cBMatch.TabIndex = 18;
+            this.cBMatch.Text = "Egyezés (kar.):";
+            this.cBMatch.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
@@ -262,8 +265,8 @@ namespace PubSync
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MaskedTextBox mTxtBDelay;
         private System.Windows.Forms.MaskedTextBox mTBMatch;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblMatch;
+        private System.Windows.Forms.CheckBox cBMatch;
     }
 }
 
