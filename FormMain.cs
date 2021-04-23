@@ -45,7 +45,9 @@ namespace PubSync
                 //több szerzős találat kezelése (pl.: Süle Zoltán (műszaki informatika), Süle Zoltán (neurobiológia))
                 IList<IWebElement> authorscount = driverMTMT.FindElements(By.XPath("//div[@class='item-right-inner']"));
                 if (authorscount.Count>1) {
-                    MessageBox.Show(authorscount.Count.ToString()+" különböző "+author+" nevű szerzőt találtam", "Figyelem!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(authorscount.Count.ToString()+" különböző "+author+" nevű szerzőt találtam" + Environment.NewLine +
+                        "Az elsőnek megtalált szerzővel dolgozom. Ha másik szerzőre kíváncsi, kérem pontosítsa a keresési feltételt!"
+                        , "Figyelem!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     
                     //Melyik szerzőt keressük?
                     //authorscount[0].Text.ToString();
@@ -61,6 +63,7 @@ namespace PubSync
                 {
                     MessageBox.Show("Nem találtam adatot!", "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     DataClear();
+                    
                 }
                 Thread.Sleep(delay);
 
@@ -109,7 +112,9 @@ namespace PubSync
             }
             catch (Exception MTMTWebError)
             {
-                MessageBox.Show("Hiba történt MTMT oldallal való interakció közben! "+MTMTWebError, "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Hiba történt MTMT oldallal való interakció közben! " + Environment.NewLine +
+                    "Kérem a következő hibaüzentettel keresse meg a fejlesztőt: " + Environment.NewLine+
+                    MTMTWebError, "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -216,6 +221,12 @@ namespace PubSync
                                                   lstBooks[i].MTMTpubInfo, 
                                                   lstBooks[i].MTMTpubEnd };
                     DGVMTMT.Rows.Add(row);
+
+                    //sorok színezése
+                    if (DGVMTMT.Rows[i].Cells[2].Value != null)
+                        DGVMTMT.Rows[i].DefaultCellStyle.BackColor = Color.Aqua;
+                    else
+                        DGVMTMT.Rows[i].DefaultCellStyle.BackColor = Color.Gold;
                 }
 
                 lblMatch.Text = "Egyezések: " +Match.ToString()+ " db";

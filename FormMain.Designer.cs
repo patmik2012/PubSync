@@ -101,7 +101,7 @@ namespace PubSync
             this.mTBMatch.Name = "mTBMatch";
             this.mTBMatch.Size = new System.Drawing.Size(36, 20);
             this.mTBMatch.TabIndex = 17;
-            this.mTBMatch.Text = "10";
+            this.mTBMatch.Text = "15";
             this.mTBMatch.ValidatingType = typeof(int);
             // 
             // label1
@@ -220,8 +220,6 @@ namespace PubSync
             // cBMatch
             // 
             this.cBMatch.AutoSize = true;
-            this.cBMatch.Checked = true;
-            this.cBMatch.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cBMatch.Location = new System.Drawing.Point(11, 59);
             this.cBMatch.Name = "cBMatch";
             this.cBMatch.Size = new System.Drawing.Size(96, 17);
