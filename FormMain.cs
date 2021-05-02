@@ -35,6 +35,7 @@ namespace PubSync
             var driverService = ChromeDriverService.CreateDefaultService();
             //ChromeDriver Windows parancssor ablak elrejtáse
             driverService.HideCommandPromptWindow = true; 
+            //Chrome v88-ig támogatja a Selenium v3.141!
             IWebDriver driverMTMT = new ChromeDriver(driverService,options);
 
             try
@@ -48,10 +49,7 @@ namespace PubSync
                     MessageBox.Show(authorscount.Count.ToString()+" különböző "+author+" nevű szerzőt találtam" + Environment.NewLine +
                         "Az elsőnek megtalált szerzővel dolgozom. Ha másik szerzőre kíváncsi, kérem pontosítsa a keresési feltételt!"
                         , "Figyelem!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    
-                    //Melyik szerzőt keressük?
-                    //authorscount[0].Text.ToString();
-                }
+                                    }
                 Thread.Sleep(delay);
 
                 //rossz szerző keresés kezelése
@@ -112,7 +110,7 @@ namespace PubSync
             }
             catch (Exception MTMTWebError)
             {
-                MessageBox.Show("Hiba történt MTMT oldallal való interakció közben! " + Environment.NewLine +
+                MessageBox.Show("Hiba történt MTMT oldallal való interakció közben! " + Environment.NewLine + Environment.NewLine +
                     "Kérem a következő hibaüzentettel keresse meg a fejlesztőt: " + Environment.NewLine+
                     MTMTWebError, "Hiba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -144,7 +142,14 @@ namespace PubSync
             //szerző műveinek lekérdezése
             HttpClient httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Add("Accept", "application/json;charset=UTF-8");
-            var result = httpClient.GetAsync("http://localhost:5000/api/quick/"+author).Result;
+            //Scholar keresésnél a zárójeles részt kivesszük pl.: Süle Zoltán (műszaki informatika)
+            string ScholarAuthor = author;
+            if (author.Contains("("))
+            {
+                ScholarAuthor = author.Substring(0, author.IndexOf("("));
+            }
+            //scholar API használata
+            var result = httpClient.GetAsync("http://localhost:5000/api/quick/"+ScholarAuthor).Result;
             result.Content.ReadAsStringAsync();
 
             //JSON DeSerializáció
@@ -160,26 +165,28 @@ namespace PubSync
                 {
                     for (int MTMT = 0; MTMT < lstBooks.Count; MTMT++)
                     {
- //ha rövidebb a sztring, mint a substring, akkor a teljes sztringet kell nézni
+                        //Egyező title keresés
+                        string MTMTTitleResz = lstBooks[MTMT].MTMTtitle;
+                        string GSTitleResz = BookGS.publications[GS].title;
 
-
-                        if (cBMatch.Checked && (lstBooks[MTMT].MTMTtitle.Substring(0, Int32.Parse(mTBMatch.Text) - 1) == BookGS.publications[GS].title.Substring(0, Int32.Parse(mTBMatch.Text) - 1)))
+                        //Egyező résztitle keresés
+                        if (cBMatch.Checked)
                         {
-                            //egyezést találtam részcím vizsgálattal
+                            //ha rövidebb a sztring, mint a substring, akkor a teljes sztringre keresünk,különben a részstringre
+                            if (Int32.Parse(mTBMatch.Text) < lstBooks[MTMT].MTMTtitle.Length)
+                                MTMTTitleResz = lstBooks[MTMT].MTMTtitle.Substring(0, Int32.Parse(mTBMatch.Text) - 1);
+                            if (Int32.Parse(mTBMatch.Text) < BookGS.publications[GS].title.Length)
+                                GSTitleResz = BookGS.publications[GS].title.Substring(0, Int32.Parse(mTBMatch.Text) - 1);
+                        }
+
+                        if (MTMTTitleResz == GSTitleResz)
+                        {
+                            //egyezést találtam cím vagy részcím vizsgálattal
                             lstBooks[MTMT].GStitle = BookGS.publications[GS].title;
                             lstBooks[MTMT].GSpub_year = BookGS.publications[GS].pub_year;
                             lstBooks[MTMT].GSnum_citations = BookGS.publications[GS].num_citations;
                             lstBooks[MTMT].Match = true;
                         }
-                        else if (lstBooks[MTMT].MTMTtitle == BookGS.publications[GS].title)
-                        {
-                            //pontos egyezést találtam
-                            lstBooks[MTMT].GStitle = BookGS.publications[GS].title;
-                            lstBooks[MTMT].GSpub_year = BookGS.publications[GS].pub_year;
-                            lstBooks[MTMT].GSnum_citations = BookGS.publications[GS].num_citations;
-                            lstBooks[MTMT].Match = true;
-                        }   
-                        
                     }
                 }
             }

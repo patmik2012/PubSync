@@ -32,6 +32,7 @@ namespace PubSync
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblMatch = new System.Windows.Forms.Label();
             this.gBSettings = new System.Windows.Forms.GroupBox();
+            this.cBMatch = new System.Windows.Forms.CheckBox();
             this.mTBMatch = new System.Windows.Forms.MaskedTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.mTxtBDelay = new System.Windows.Forms.MaskedTextBox();
@@ -44,7 +45,6 @@ namespace PubSync
             this.BtnSearch = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.DGVMTMT = new System.Windows.Forms.DataGridView();
-            this.cBMatch = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.gBSettings.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -94,6 +94,16 @@ namespace PubSync
             this.gBSettings.TabStop = false;
             this.gBSettings.Text = "Beállítások";
             // 
+            // cBMatch
+            // 
+            this.cBMatch.AutoSize = true;
+            this.cBMatch.Location = new System.Drawing.Point(11, 59);
+            this.cBMatch.Name = "cBMatch";
+            this.cBMatch.Size = new System.Drawing.Size(96, 17);
+            this.cBMatch.TabIndex = 18;
+            this.cBMatch.Text = "Egyezés [kar.]:";
+            this.cBMatch.UseVisualStyleBackColor = true;
+            // 
             // mTBMatch
             // 
             this.mTBMatch.Location = new System.Drawing.Point(110, 57);
@@ -107,11 +117,11 @@ namespace PubSync
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(43, 26);
+            this.label1.Location = new System.Drawing.Point(21, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 13);
+            this.label1.Size = new System.Drawing.Size(83, 13);
             this.label1.TabIndex = 15;
-            this.label1.Text = "Késleltetés:";
+            this.label1.Text = "Késleltetés [ms]:";
             // 
             // mTxtBDelay
             // 
@@ -216,16 +226,6 @@ namespace PubSync
             this.DGVMTMT.ReadOnly = true;
             this.DGVMTMT.Size = new System.Drawing.Size(771, 414);
             this.DGVMTMT.TabIndex = 2;
-            // 
-            // cBMatch
-            // 
-            this.cBMatch.AutoSize = true;
-            this.cBMatch.Location = new System.Drawing.Point(11, 59);
-            this.cBMatch.Name = "cBMatch";
-            this.cBMatch.Size = new System.Drawing.Size(96, 17);
-            this.cBMatch.TabIndex = 18;
-            this.cBMatch.Text = "Egyezés (kar.):";
-            this.cBMatch.UseVisualStyleBackColor = true;
             // 
             // FormMain
             // 
