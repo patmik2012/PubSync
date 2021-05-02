@@ -155,7 +155,7 @@ namespace PubSync
             //JSON DeSerializáció
             var jsonString = result.Content.ReadAsStringAsync();
             jsonString.Wait();
-//ha nincs Scholar eredmény null-ra nem lehet deszerializáció
+            //ha nincs Scholar eredmény null-ra nem lehet deszerializáció
             BookGS BookGS = JsonConvert.DeserializeObject<BookGS>(jsonString.Result);
 
             //Scholar könyv MTMT könyhöz rendelése
