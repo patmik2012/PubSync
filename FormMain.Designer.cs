@@ -29,6 +29,7 @@ namespace PubSync
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblMatch = new System.Windows.Forms.Label();
             this.gBSettings = new System.Windows.Forms.GroupBox();
@@ -234,6 +235,7 @@ namespace PubSync
             this.ClientSize = new System.Drawing.Size(777, 544);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormMain";
             this.Text = "PubSync";
             this.groupBox1.ResumeLayout(false);
